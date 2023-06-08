@@ -31,12 +31,7 @@ function App() {
           {
             items.map(function (item, i) {
               return (
-                <div className="col-md-4">
-                  <img src="/present1.jpeg" width="80%" />
-                  <h4>{item.title}</h4>
-                  <p>{item.content}</p>
-                  <p>{item.price}</p>
-                </div>
+                <Item item={item}/>
               )
             })
           }
@@ -48,6 +43,17 @@ function App() {
       <Button variant="primary">Primary</Button>
     </div>
   );
+}
+
+function Item(props) {
+  return (
+    <div className="col-md-4">
+      <img src="/present1.jpeg" width="80%" />
+      <h4>{props.item.title}</h4>
+      <p>{props.item.content}</p>
+      <p>{props.item.price}</p>
+    </div>
+  )
 }
 
 export default App;
