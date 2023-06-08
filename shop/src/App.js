@@ -1,8 +1,14 @@
 /* eslint-disable */
 import './App.css';
+import { useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap'
 
+import data from './data.js'
+
 function App() {
+
+  let [items] = useState(data)
+
   return (
     <div className="App">
       <Navbar bg="light" variant="light">
@@ -22,21 +28,18 @@ function App() {
 
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img src="/present1.jpeg" width="80%" />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className="col-md-4">
-            <img src="/present2.jpeg" width="80%" />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className="col-md-4">
-            <img src="/present3.jpeg" width="80%" />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
+          {
+            items.map(function (item, i) {
+              return (
+                <div className="col-md-4">
+                  <img src="/present1.jpeg" width="80%" />
+                  <h4>{item.title}</h4>
+                  <p>{item.content}</p>
+                  <p>{item.price}</p>
+                </div>
+              )
+            })
+          }
         </div>
       </div>
 
