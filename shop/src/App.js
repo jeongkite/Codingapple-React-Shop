@@ -31,7 +31,7 @@ function App() {
           {
             items.map(function (item, i) {
               return (
-                <Item item={item}/>
+                <Card item={item}/>
               )
             })
           }
@@ -45,10 +45,10 @@ function App() {
   );
 }
 
-function Item(props) {
+function Card(props) {
   return (
     <div className="col-md-4">
-      <img src="/present1.jpeg" width="80%" />
+      <img src={'/present'+(props.item.id + 1)+'.jpeg'} width="80%" />
       <h4>{props.item.title}</h4>
       <p>{props.item.content}</p>
       <p>{props.item.price}</p>
