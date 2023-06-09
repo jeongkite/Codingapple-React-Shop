@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import data from './../data.js'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function MainPage() {
+    let navigate = useNavigate();
     let [items] = useState(data)
 
     return (
@@ -14,9 +15,7 @@ function MainPage() {
                     {
                         items.map(function (item, i) {
                             return (
-                                <Link to={"/detail"}>
-                                    <Card item={item} />
-                                </Link>
+                                <Card onClick={()=>{ navigate('/detail') }} item={item} />
                             )
                         })
                     }

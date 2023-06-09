@@ -2,35 +2,49 @@
 import './App.css';
 import { useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 
 import MainPage from './Components/Main';
 import DetailPage from './Components/Detail';
 
 function App() {
+  let navigate = useNavigate();
 
   return (
     <div className="App">
 
       <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="#home">Shop</Navbar.Brand>
+          <Navbar.Brand onClick={() => { navigate('/') }}>Shop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/features') }}>Features</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
       <Routes>
-        <Route path='/' element={ <MainPage /> } />
-        <Route path='/detail' element={ <DetailPage /> } />
-        <Route path='/about' element={<div>어바웃입니다 여기는 쿠쿠루삥뽕빵</div>} />
+        <Route path='/' element={<MainPage />} />
+        <Route path='/detail' element={<DetailPage />} />
+        <Route path='/about' element={<AbuoutPage />}>
+          <Route path='member' element={<div>우리 회사 사람들...</div>} />
+          <Route path='location' element={<div>우리 회사 위치...</div>} />
+        </Route>
+        <Route path='*' element={<div>잘못된 접근입니다.</div>} />
       </Routes>
 
     </div>
   );
+}
+
+function AbuoutPage() {
+  return (
+    <div>
+      <h4>회사 정보 입니다</h4>
+      <Outlet></Outlet>
+    </div>
+  )
 }
 
 
