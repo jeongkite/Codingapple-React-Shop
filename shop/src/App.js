@@ -1,8 +1,8 @@
 /* eslint-disable */
 import './App.css';
 import { useState } from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Routes, Route, useNavigate, Outlet } from 'react-router-dom'
 
 import data from './data.js';
 import MainPage from './Components/Main.js';

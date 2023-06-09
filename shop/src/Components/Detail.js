@@ -1,4 +1,18 @@
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+
+let Btn = styled.button`
+    background: ${ props => props.bg };
+    color: ${ props => props.bg == 'blue' ? 'white' : 'black' };
+    padding: 10px;
+    border: none;
+`
+let RoundBtn = styled(Btn)`
+    border-radius: 30%;
+`
+let Textarea = styled.textarea`
+    color: red;
+`
 
 function DetailPage(props) {
     let {itemId} = useParams();
@@ -6,6 +20,9 @@ function DetailPage(props) {
 
     return (
         <div className="container">
+            <Btn bg="green">버튼</Btn>
+            <Btn bg="blue">버튼</Btn>
+            <RoundBtn bg="pink">둥글게둥글게</RoundBtn>
             <div className="row">
                 <div className="col-md-6">
                     <img src={"https://codingapple1.github.io/shop/shoes" + (item.id + 1) + ".jpg"} width="100%" />

@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import data from './../data.js'
-import { Link, useNavigate } from 'react-router-dom'
 
 function MainPage() {
-    let navigate = useNavigate();
     let [items] = useState(data);
 
     return (
