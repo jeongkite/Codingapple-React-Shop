@@ -31,11 +31,24 @@ function App() {
           <Route path='member' element={<div>우리 회사 사람들...</div>} />
           <Route path='location' element={<div>우리 회사 위치...</div>} />
         </Route>
+        <Route path='event' element={<EventPage />}>
+          <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
+          <Route path='two' element={<div>생일기념 쿠폰 받기</div>} />
+        </Route>
         <Route path='*' element={<div>잘못된 접근입니다.</div>} />
       </Routes>
 
     </div>
   );
+}
+
+function EventPage() {
+  return (
+    <div>
+      <h4>오늘의 이벤트!</h4>
+      <Outlet></Outlet>
+    </div>
+  )
 }
 
 function AbuoutPage() {
