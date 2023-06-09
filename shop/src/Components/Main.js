@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 function MainPage() {
     let navigate = useNavigate();
-    let [items] = useState(data)
+    let [items] = useState(data);
 
     return (
         <div>
@@ -15,7 +15,7 @@ function MainPage() {
                     {
                         items.map(function (item, i) {
                             return (
-                                <Card onClick={()=>{ navigate('/detail') }} item={item} />
+                                <Card item={item} />
                             )
                         })
                     }
