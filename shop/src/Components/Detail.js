@@ -2,11 +2,7 @@ import { useParams } from "react-router-dom";
 
 function DetailPage(props) {
     let {itemId} = useParams();
-    let item = props.items.find((item)=>{
-        if (item.id == itemId) {
-            return true
-        }
-    })
+    let item = props.items.find((item)=>{ return item.id == itemId })
 
     return (
         <div className="container">
