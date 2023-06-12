@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import data from './../data.js'
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
     let [items] = useState(data);
@@ -24,8 +25,10 @@ function MainPage() {
 }
 
 function Card(props) {
+    let navigate = useNavigate();
+
     return (
-        <div className="col-md-4">
+        <div onClick={()=>{ navigate('/detail/' + props.item.id) }} className="col-md-4">
             <img src={'/present' + (props.item.id + 1) + '.jpeg'} width="80%" />
             <h4>{props.item.title}</h4>
             <p>{props.item.content}</p>
