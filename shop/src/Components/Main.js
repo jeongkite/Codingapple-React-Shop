@@ -2,10 +2,10 @@ import { useState } from 'react';
 import data from './../data.js'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import Button from 'react-bootstrap/Button';
 
 function MainPage() {
-    let [items] = useState(data);
-    let navigate = useNavigate();
+    let [items, setItems] = useState(data);
 
     return (
         <div>
@@ -22,24 +22,28 @@ function MainPage() {
                     }
                 </div>
             </div>
-            <button onClick={() => {
+            <Button onClick={() => {
                 axios.get('https://codingapple1.github.io/shop/data2.json')
                 .then((result) => {
-                    console.log(result.data)
+                    let newItems = [...items];
+                    result.data.forEach(element => {
+                        newItems.push(element)
+                    });
+                    setItems(newItems);
                 })
                 .catch(() => {
                     console.log("🚨 네트워크 통신 실패!")
                 })
-            }}>버튼</button>
+            }} variant="outline-secondary" className='my-5'>더 보기</Button>
+
         </div>
     )
 }
 
 function Card(props) {
     let navigate = useNavigate();
-
+    // console.log(props.item)
     return (
-        // 여기다 넣어주면 동작함!!
         <div onClick={()=>{ navigate('/detail/' + props.item.id) }} className="col-md-4">
             <img src={'/present' + (props.item.id + 1) + '.jpeg'} width="80%" />
             <h4>{props.item.title}</h4>
