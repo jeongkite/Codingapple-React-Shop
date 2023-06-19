@@ -89,17 +89,12 @@ function DetailPage(props) {
     )
 }
 
-function TabContent({radio}) {
-    switch (radio) {
-        case 0:
-            return <Alert variant='light' className="mt-2">상세정보를 표시한다입니다.</Alert>
-        case 1:
-            return <Alert variant='light' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert>
-        case 2:
-            return <Alert variant='light' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert>
-        default:
-            return
-    }
+function TabContent({ radio }) {
+    return [
+        <Alert variant='light' className="mt-2">상세정보를 표시한다입니다.</Alert>,
+        <Alert variant='light' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert>,
+        <Alert variant='light' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert>
+    ][radio]
 }
 
 export default DetailPage;
