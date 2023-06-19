@@ -25,10 +25,7 @@ function MainPage() {
             <Button onClick={() => {
                 axios.get('https://codingapple1.github.io/shop/data2.json')
                 .then((result) => {
-                    let newItems = [...items];
-                    result.data.forEach(element => {
-                        newItems.push(element)
-                    });
+                    let newItems = items.concat(result.data)
                     setItems(newItems);
                 })
                 .catch(() => {
