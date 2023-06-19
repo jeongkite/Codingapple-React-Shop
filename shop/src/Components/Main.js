@@ -24,13 +24,13 @@ function MainPage() {
             </div>
             <Button onClick={() => {
                 axios.get('https://codingapple1.github.io/shop/data2.json')
-                .then((result) => {
-                    let newItems = items.concat(result.data)
-                    setItems(newItems);
-                })
-                .catch(() => {
-                    console.log("🚨 네트워크 통신 실패!")
-                })
+                    .then((result) => {
+                        let newItems = items.concat(result.data)
+                        setItems(newItems);
+                    })
+                    .catch(() => {
+                        console.log("🚨 네트워크 통신 실패!")
+                    })
             }} variant="outline-secondary" className='my-5'>더 보기</Button>
 
         </div>
@@ -41,7 +41,7 @@ function Card(props) {
     let navigate = useNavigate();
     // console.log(props.item)
     return (
-        <div onClick={()=>{ navigate('/detail/' + props.item.id) }} className="col-md-4">
+        <div onClick={() => { navigate('/detail/' + props.item.id) }} className="col-md-4">
             <img src={'/present' + (props.item.id + 1) + '.jpeg'} width="80%" />
             <h4>{props.item.title}</h4>
             <p>{props.item.content}</p>
