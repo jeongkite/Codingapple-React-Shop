@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import { Nav } from "react-bootstrap";
 
 let Btn = styled.button`
     background: ${props => props.bg};
@@ -31,12 +32,12 @@ function DetailPage(props) {
     let [isBosHidden, setIsBoxHidden] = useState(false);
     let [count, setCount] = useState("");
     let [isAlertHidden, setIsAlertHidden] = useState(true);
-    let [radioValue, setRadioValue] = useState(1);
+    let [radioValue, setRadioValue] = useState(0);
 
     const radios = [
-        { name: '상세 정보', value: '1' },
+        { name: '상세정보', value: '1' },
         { name: '리뷰', value: '2' },
-        { name: '기타 정보 고시', value: '3' },
+        { name: '반품/교환정보', value: '3' },
     ];
 
     useEffect(() => {
@@ -65,54 +66,37 @@ function DetailPage(props) {
                 </div>
             </div>
             <div>
-                <ButtonGroup>
+                <Nav variant="tabs" defaultActiveKey="link-0">
                     {radios.map((radio, idx) => (
-                        <ToggleButton
-                            key={idx}
-                            id={`radio-${idx}`}
-                            type="radio"
-                            variant='light'
-                            name="radio"
-                            value={radio.value}
-                            checked={radioValue === radio.value}
-                            onChange={(e) => {
-                                setRadioValue(e.target.value)
-
-                            }}
-                        >
-                            {radio.name}
-                        </ToggleButton>
+                        <Nav.Item>
+                            <Nav.Link
+                                tabIndex={idx}
+                                eventKey={`link-${idx}`}
+                                onClick={(e) => {
+                                    setRadioValue(e.target.tabIndex);
+                                }}
+                            >
+                                {radio.name}
+                            </Nav.Link>
+                        </Nav.Item>
                     ))}
-                </ButtonGroup>
+                </Nav>
 
-                {/* <Tab radio={radioValue}></Tab> */}
-                {
-                    radioValue == 1 ? <Alert variant='secondary' className="mt-2">상세정보를 표시한다입니다.</Alert> : null
-                }
-                {
-                    radioValue == 2 ? <Alert variant='secondary' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert> : null
-                }
-                {
-                    radioValue == 3 ? <Alert variant='secondary' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert> : null
-                }
+                <TabContent radio={radioValue}></TabContent>
 
             </div>
         </div>
     )
 }
 
-function Tab(props) {
-    console.log(props.radio)
-    switch (props.radio) {
+function TabContent({radio}) {
+    switch (radio) {
+        case 0:
+            return <Alert variant='light' className="mt-2">상세정보를 표시한다입니다.</Alert>
         case 1:
-            console.log("안녕1")
-            return <Alert variant='secondary' className="mt-2">상세정보를 표시한다입니다.</Alert>
+            return <Alert variant='light' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert>
         case 2:
-            console.log("안녕2")
-            return <Alert variant='secondary' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert>
-        case 3:
-            console.log("안녕3")
-            return <Alert variant='secondary' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert>
+            return <Alert variant='light' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert>
         default:
             return
     }
