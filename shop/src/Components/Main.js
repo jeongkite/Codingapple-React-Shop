@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import data from './../data.js'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 function MainPage() {
     let [items] = useState(data);
@@ -15,13 +16,21 @@ function MainPage() {
                     {
                         items.map(function (item, i) {
                             return (
-                                // 이렇게 하고 싶은데 동작하지 않음
-                                <Card onClick={()=>{ navigate('/detail/' + i) }} item={item} />
+                                <Card item={item} />
                             )
                         })
                     }
                 </div>
             </div>
+            <button onClick={() => {
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((result) => {
+                    console.log(result.data)
+                })
+                .catch(() => {
+                    console.log("🚨 네트워크 통신 실패!")
+                })
+            }}>버튼</button>
         </div>
     )
 }
