@@ -1,8 +1,9 @@
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 function Cart() {
-    let a = useSelector((state) => { return state.user } )
+    let a = useSelector((state) => { return state.user })
+    let carts = useSelector((state) => { return state.cartData })
     console.log(a)
 
     return (
@@ -16,12 +17,21 @@ function Cart() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>안녕</td>
-                    <td>안녕</td>
-                    <td>안녕</td>
-                </tr>
+                {
+                    carts && carts.map(function (cart, idx) {
+                        return (
+                            <tr>
+                                <td>{cart.id}</td>
+                                <td>{cart.name}</td>
+                                <td>{cart.count}</td>
+                                <td>
+                                    <Button className='me-1' variant="outline-primary">+1</Button>
+                                    <Button variant="outline-danger">-1</Button>
+                                </td>
+                            </tr>
+                        )
+                    })
+                }
             </tbody>
         </Table>
     )
