@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Alert from 'react-bootstrap/Alert';
 import { Nav } from "react-bootstrap";
+
+import { StockContext } from "../App";
 
 let Btn = styled.button`
     background: ${props => props.bg};
@@ -25,6 +27,7 @@ let YellowBox = styled.div`
 function DetailPage(props) {
     let { itemId } = useParams();
     let item = props.items.find((item) => item.id == itemId);
+    let contextItem = useContext(StockContext);
 
     let [isBosHidden, setIsBoxHidden] = useState(false);
     let [count, setCount] = useState("");
@@ -39,6 +42,7 @@ function DetailPage(props) {
     ];
 
     useEffect(() => {
+        console.log(contextItem);
         let timer = setTimeout(() => setIsBoxHidden(true), 2000);
         let fadeTimer = setTimeout(() => setFade('end'), 100);
         return () => {
