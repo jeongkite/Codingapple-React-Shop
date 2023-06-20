@@ -1,9 +1,12 @@
 import { Table, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { addStock, subStock } from './../store';
 
 function Cart() {
+    let dispatch = useDispatch();
     let a = useSelector((state) => { return state.user })
-    let carts = useSelector((state) => { return state.cartData })
+    let carts = useSelector((state) => { return state.carts })
     console.log(a)
 
     return (
@@ -25,7 +28,9 @@ function Cart() {
                                 <td>{cart.name}</td>
                                 <td>{cart.count}</td>
                                 <td>
-                                    <Button className='me-1' variant="outline-primary">+1</Button>
+                                    <Button onClick={() => {
+                                        dispatch(addStock())
+                                    }} className='me-1' variant="outline-primary">+1</Button>
                                     <Button variant="outline-danger">-1</Button>
                                 </td>
                             </tr>
