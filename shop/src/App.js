@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate, Outlet } from 'react-router-dom'
 import data from './data.js';
 import MainPage from './Components/Main.js';
 import DetailPage from './Components/Detail.js';
+import Cart from './Components/Cart';
 
 export let StockContext = createContext();
 
@@ -41,6 +42,7 @@ function App() {
             <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
             <Route path='two' element={<div>생일기념 쿠폰 받기</div>} />
           </Route>
+          <Route path='/cart' element={ <Cart/> }></Route>
           <Route path='*' element={<div>잘못된 접근입니다.</div>} />
         </Routes>
       </StockContext.Provider>

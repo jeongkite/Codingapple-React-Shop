@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import Alert from 'react-bootstrap/Alert';
 import { Nav } from "react-bootstrap";
 
-import { StockContext } from "../App";
+import { StockContext } from "./../App";
 
 let Btn = styled.button`
     background: ${props => props.bg};
