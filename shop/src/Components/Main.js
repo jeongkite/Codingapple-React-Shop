@@ -42,7 +42,7 @@ function Card(props) {
     // console.log(props.item)
     return (
         <div onClick={() => { navigate('/detail/' + props.item.id) }} className="col-md-4">
-            <img src={'/present' + (props.item.id + 1) + '.jpeg'} width="80%" />
+            <img src={'https://codingapple1.github.io/shop/shoes' + (props.item.id + 1) + '.jpg'} width="80%" />
             <h4>{props.item.title}</h4>
             <p>{props.item.content}</p>
             <p>{props.item.price}</p>

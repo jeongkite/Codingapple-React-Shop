@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import Alert from 'react-bootstrap/Alert';
 import { Nav } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
 import { StockContext } from "./../App";
+import { addItem } from "./../store";
 
 let Btn = styled.button`
     background: ${props => props.bg};
@@ -28,6 +30,7 @@ function DetailPage(props) {
     let { itemId } = useParams();
     let item = props.items.find((item) => item.id == itemId);
     let contextItem = useContext(StockContext);
+    let dispatch = useDispatch();
 
     let [isBosHidden, setIsBoxHidden] = useState(false);
     let [count, setCount] = useState("");
@@ -42,7 +45,7 @@ function DetailPage(props) {
     ];
 
     useEffect(() => {
-        console.log(contextItem);
+        // console.log(contextItem);
         let timer = setTimeout(() => setIsBoxHidden(true), 2000);
         let fadeTimer = setTimeout(() => setFade('end'), 100);
         return () => {
@@ -70,7 +73,9 @@ function DetailPage(props) {
                     {!isAlertHidden && <div className="alert alert-danger">숫자만 입력해주세요!</div>}
                     <input onChange={(obj) => { setCount(obj.target.value) }} type="text" className="form-control" />
                     <br />
-                    <button className="btn btn-danger">주문하기</button>
+                    <button onClick={() => {
+                        dispatch(addItem({ id: item.id, name: item.title, count: 1 }))
+                    }} className="btn btn-danger">주문하기</button>
                 </div>
             </div>
             <div>

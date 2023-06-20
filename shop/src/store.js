@@ -4,7 +4,7 @@ import user from './store/userSlice'
 import carts from './store/cartSlice'
 
 export let { changeName, changeAge } = user.actions
-export let { addStock, subStock } = carts.actions
+export let { addStock, subStock, addItem } = carts.actions
 
 export default configureStore({
   reducer: { 

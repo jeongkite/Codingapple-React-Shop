@@ -13,7 +13,7 @@ export let StockContext = createContext();
 
 function App() {
   let [stock, setStock] = useState([1, 3, 9]);
-  let [items] = useState(data);
+  let [items, setItems] = useState(data);
   let navigate = useNavigate();
 
   return (
@@ -32,7 +32,7 @@ function App() {
         </Navbar>
 
         <Routes>
-          <Route path='/' element={<MainPage />} />
+          <Route path='/' element={<MainPage items={items} />} />
           <Route path='/detail/:itemId' element={<DetailPage items={items} />} />
           <Route path='/about' element={<AbuoutPage />}>
             <Route path='member' element={<div>우리 회사 사람들...</div>} />

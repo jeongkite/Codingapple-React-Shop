@@ -28,9 +28,11 @@ function Cart() {
                                 <td>{cart.count}</td>
                                 <td>
                                     <Button onClick={() => {
-                                        dispatch(addStock(idx))
+                                        dispatch(addStock(cart.id))
                                     }} className='me-1' variant="outline-primary">+1</Button>
-                                    <Button variant="outline-danger">-1</Button>
+                                    <Button onClick={() => {
+                                        dispatch(subStock(cart.id))
+                                    }} variant="outline-danger">-1</Button>
                                 </td>
                             </tr>
                         )
