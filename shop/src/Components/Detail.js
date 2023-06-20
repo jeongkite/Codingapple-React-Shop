@@ -1,10 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
 import { Nav } from "react-bootstrap";
 
 let Btn = styled.button`
@@ -33,6 +30,7 @@ function DetailPage(props) {
     let [count, setCount] = useState("");
     let [isAlertHidden, setIsAlertHidden] = useState(true);
     let [radioValue, setRadioValue] = useState(0);
+    let [fade, setFade] = useState('');
 
     const radios = [
         { name: '상세정보', value: '1' },
@@ -42,14 +40,20 @@ function DetailPage(props) {
 
     useEffect(() => {
         let timer = setTimeout(() => setIsBoxHidden(true), 2000);
-        isNaN(count) ? setIsAlertHidden(false) : setIsAlertHidden(true)
+        let fadeTimer = setTimeout(() => setFade('end'), 100);
         return () => {
+            setFade('');
+            clearTimeout(fadeTimer);
             clearTimeout(timer);
         }
+    }, []);
+
+    useEffect(() => {
+        isNaN(count) ? setIsAlertHidden(false) : setIsAlertHidden(true)
     }, [count]);
 
     return (
-        <div className="container">
+        <div className={"container start " + fade}>
             {!isBosHidden && <div className="alert alert-warning">2초 이내 구매시 할인!</div>}
             <div className="row">
                 <div className="col-md-6">
@@ -90,11 +94,24 @@ function DetailPage(props) {
 }
 
 function TabContent({ radio }) {
-    return [
-        <Alert variant='light' className="mt-2">상세정보를 표시한다입니다.</Alert>,
-        <Alert variant='light' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert>,
-        <Alert variant='light' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert>
-    ][radio]
+    let [fade, setFade] = useState('');
+
+    useEffect(() => {
+        let timer = setTimeout(()=>{ setFade('end') }, 100)
+        return () => {
+            setFade('')
+            clearTimeout(timer);
+        }
+    }, [radio])
+
+    return (
+        <div className={'start ' + fade }>{[
+            <Alert variant='light' className="mt-2">상세정보를 표시한다입니다.</Alert>,
+            <Alert variant='light' className="mt-2">리뷰리뷰리뷰 표시한다입니다.</Alert>,
+            <Alert variant='light' className="mt-2">안녕하세요, 저는 양정연입니다. 기타 정보 고시를 클릭한 당신. 표시한다입니다.</Alert>
+        ][radio]}
+        </div>
+    )
 }
 
 export default DetailPage;
