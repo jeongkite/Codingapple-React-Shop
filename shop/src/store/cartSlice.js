@@ -6,15 +6,13 @@ let carts = createSlice({
     initialState: cartData,
     reducers: {
         addStock(state, action) {
-            state.find(item => item.id === action.payload).count += 1;
+            state.find(item => item.id === action.payload).count++;
         },
         subStock(state, action) {
-            state.find(item => item.id === action.payload).count -= 1;
+            state.find(item => item.id === action.payload).count--;
         },
         addItem(state, action) {
-            console.log(action.payload)
-            console.log(state[0])
-            state.concat(action.payload)
+            state.push(action.payload)
         }
     }
 });
