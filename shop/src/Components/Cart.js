@@ -1,13 +1,12 @@
 import { Table, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addStock, subStock } from './../store';
+import { addStock, subStock, changeName, changeAge } from './../store';
 
 function Cart() {
     let dispatch = useDispatch();
-    let a = useSelector((state) => { return state.user })
+    let user = useSelector((state) => { return state.user })
     let carts = useSelector((state) => { return state.carts })
-    console.log(a)
 
     return (
         <Table>
@@ -29,7 +28,7 @@ function Cart() {
                                 <td>{cart.count}</td>
                                 <td>
                                     <Button onClick={() => {
-                                        dispatch(addStock())
+                                        dispatch(addStock(idx))
                                     }} className='me-1' variant="outline-primary">+1</Button>
                                     <Button variant="outline-danger">-1</Button>
                                 </td>
@@ -38,6 +37,10 @@ function Cart() {
                     })
                 }
             </tbody>
+
+            <Button onClick={() => {
+                dispatch(changeAge(1))
+            }} variant="outline-dark">{ `${user.name}님, ${user.age}세` }</Button>
         </Table>
     )
 }
