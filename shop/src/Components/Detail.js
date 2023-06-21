@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import Alert from 'react-bootstrap/Alert';
 import { Nav } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { StockContext } from "./../App";
 import { addItem } from "./../store";
@@ -28,7 +28,8 @@ let YellowBox = styled.div`
 
 function DetailPage(props) {
     let { itemId } = useParams();
-    let item = props.items.find((item) => item.id == itemId);
+    let items = useSelector((state) => { return state.items });
+    let item = items.find((item) => item.id == itemId);
     let contextItem = useContext(StockContext);
     let dispatch = useDispatch();
 
@@ -45,9 +46,17 @@ function DetailPage(props) {
     ];
 
     useEffect(() => {
-        // console.log(contextItem);
         let timer = setTimeout(() => setIsBoxHidden(true), 2000);
         let fadeTimer = setTimeout(() => setFade('end'), 100);
+        var recent = JSON.parse(localStorage.getItem('recentItems'));
+        if(typeof recent == "undefined" || recent == null || recent == "") {
+            localStorage.setItem('recentItems', JSON.stringify([itemId]));
+        }
+		else {
+            recent.push(itemId);
+            localStorage.setItem('recentItems', JSON.stringify(recent));
+        }
+			
         return () => {
             setFade('');
             clearTimeout(fadeTimer);

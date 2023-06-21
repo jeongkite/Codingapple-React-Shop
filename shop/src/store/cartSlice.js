@@ -12,7 +12,7 @@ let carts = createSlice({
             state.find(item => item.id === action.payload).count--;
         },
         addItem(state, action) {
-            state.push(action.payload)
+            state.push(action.payload);
         }
     }
 });
