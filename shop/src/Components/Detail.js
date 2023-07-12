@@ -54,6 +54,8 @@ function DetailPage(props) {
         }
 		else {
             recent.push(itemId);
+            recent = new Set(recent);
+            recent = Array.from(recent);
             localStorage.setItem('recentItems', JSON.stringify(recent));
         }
 			
