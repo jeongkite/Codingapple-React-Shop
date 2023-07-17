@@ -1,6 +1,6 @@
 /* eslint-disable */
 import './App.css';
-import { useState, createContext } from 'react';
+import { useState, createContext, lazy } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios';
@@ -8,9 +8,10 @@ import { useQuery } from '@tanstack/react-query'
 
 
 import data from './data.js';
-import MainPage from './Components/Main.js';
-import DetailPage from './Components/Detail.js';
-import Cart from './Components/Cart';
+// import MainPage from './Components/Main.js';
+const MainPage = lazy( () => import ('./Components/Main.js'));
+const DetailPage = lazy( () => import ('./Components/Detail.js'));
+const Cart = lazy( () => import ('./Components/Cart.js'));
 
 export let StockContext = createContext();
 
