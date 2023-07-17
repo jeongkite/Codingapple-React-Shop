@@ -19,9 +19,12 @@ function App() {
   let [items, setItems] = useState(data);
   let navigate = useNavigate();
 
-  let result = useQuery(['작명'], () => {
-    return axios.get('https://codingapple1.github.io/userdata.json').then((r)=> r.data)
-  })
+  let result = useQuery(['작명'], () => 
+    axios.get('https://codingapple1.github.io/userdata.json').then((r)=> {
+      console.log("요청요청~~")
+      return r.data
+    })
+  )
 
   return (
     <div className="App">
@@ -33,7 +36,7 @@ function App() {
               <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
               <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
             </Nav>
-            <Nav className='ms-auto'>반가워요 { result.data && result.data.name }</Nav>
+            <Nav className='ms-auto'>반가워요, { result.data && result.data.name }</Nav>
           </Container>
         </Navbar>
 
