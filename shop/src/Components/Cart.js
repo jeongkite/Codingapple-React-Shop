@@ -9,41 +9,44 @@ function Cart() {
     let carts = useSelector((state) => { return state.carts })
 
     return (
-        <Table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>상품명</th>
-                    <th>수량</th>
-                    <th>변경하기</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    carts && carts.map(function (cart, idx) {
-                        return (
-                            <tr>
-                                <td>{cart.id}</td>
-                                <td>{cart.name}</td>
-                                <td>{cart.count}</td>
-                                <td>
-                                    <Button onClick={() => {
-                                        dispatch(addStock(cart.id))
-                                    }} className='me-1' variant="outline-primary">+1</Button>
-                                    <Button onClick={() => {
-                                        dispatch(subStock(cart.id))
-                                    }} variant="outline-danger">-1</Button>
-                                </td>
-                            </tr>
-                        )
-                    })
-                }
-            </tbody>
+        <div>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>상품명</th>
+                        <th>수량</th>
+                        <th>변경하기</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        carts && carts.map(function (cart, idx) {
+                            return (
+                                <tr key={idx}>
+                                    <td>{cart.id}</td>
+                                    <td>{cart.name}</td>
+                                    <td>{cart.count}</td>
+                                    <td>
+                                        <Button onClick={() => {
+                                            dispatch(addStock(cart.id))
+                                        }} className='me-1' variant="outline-primary">+1</Button>
+                                        <Button onClick={() => {
+                                            dispatch(subStock(cart.id))
+                                        }} variant="outline-danger">-1</Button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </Table>
 
+            <MemoExampleChild />
             <Button onClick={() => {
                 dispatch(changeAge(1))
-            }} variant="outline-dark">{ `${user.name}님, ${user.age}세` }</Button>
-        </Table>
+            }} variant="outline-dark">{`${user.name}님, ${user.age}세`}</Button>
+        </div>
     )
 }
 
