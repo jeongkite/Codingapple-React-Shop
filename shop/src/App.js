@@ -1,17 +1,17 @@
 /* eslint-disable */
 import './App.css';
-import { useState, createContext, lazy } from 'react';
+import { useState, createContext, lazy, Suspense } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Routes, Route, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query' 
+import { useQuery } from '@tanstack/react-query'
 
 
 import data from './data.js';
 // import MainPage from './Components/Main.js';
-const MainPage = lazy( () => import ('./Components/Main.js'));
-const DetailPage = lazy( () => import ('./Components/Detail.js'));
-const Cart = lazy( () => import ('./Components/Cart.js'));
+const MainPage = lazy(() => import('./Components/Main.js'));
+const DetailPage = lazy(() => import('./Components/Detail.js'));
+const Cart = lazy(() => import('./Components/Cart.js'));
 
 export let StockContext = createContext();
 
@@ -20,8 +20,8 @@ function App() {
   let [items, setItems] = useState(data);
   let navigate = useNavigate();
 
-  let result = useQuery(['작명'], () => 
-    axios.get('https://codingapple1.github.io/userdata.json').then((r)=> {
+  let result = useQuery(['작명'], () =>
+    axios.get('https://codingapple1.github.io/userdata.json').then((r) => {
       console.log("요청요청~~")
       return r.data
     })
@@ -37,30 +37,31 @@ function App() {
               <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
               <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
             </Nav>
-            <Nav className='ms-auto'>반가워요, { result.data && result.data.name }</Nav>
+            <Nav className='ms-auto'>반가워요, {result.data && result.data.name}</Nav>
           </Container>
         </Navbar>
 
-      <div>
-        { result.isLoading && '로딩중' }
-        { result.error && '에러남' }
-        { result.data && result.data.name }
-      </div>
-
-        <Routes>
-          <Route path='/' element={<MainPage items={items} />} />
-          <Route path='/detail/:itemId' element={<DetailPage items={items} />} />
-          <Route path='/about' element={<AbuoutPage />}>
-            <Route path='member' element={<div>우리 회사 사람들...</div>} />
-            <Route path='location' element={<div>우리 회사 위치...</div>} />
-          </Route>
-          <Route path='event' element={<EventPage />}>
-            <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
-            <Route path='two' element={<div>생일기념 쿠폰 받기</div>} />
-          </Route>
-          <Route path='/cart' element={ <Cart/> }></Route>
-          <Route path='*' element={<div>잘못된 접근입니다.</div>} />
-        </Routes>
+        <div>
+          {result.isLoading && '로딩중'}
+          {result.error && '에러남'}
+          {result.data && result.data.name}
+        </div>
+        <Suspense fallback={ <div>로딩중...</div> }>
+          <Routes>
+            <Route path='/' element={<MainPage items={items} />} />
+            <Route path='/detail/:itemId' element={<DetailPage items={items} />} />
+            <Route path='/about' element={<AbuoutPage />}>
+              <Route path='member' element={<div>우리 회사 사람들...</div>} />
+              <Route path='location' element={<div>우리 회사 위치...</div>} />
+            </Route>
+            <Route path='event' element={<EventPage />}>
+              <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
+              <Route path='two' element={<div>생일기념 쿠폰 받기</div>} />
+            </Route>
+            <Route path='/cart' element={<Cart />}></Route>
+            <Route path='*' element={<div>잘못된 접근입니다.</div>} />
+          </Routes>
+        </Suspense>
       </StockContext.Provider>
     </div>
   );
