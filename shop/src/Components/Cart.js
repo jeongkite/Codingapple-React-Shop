@@ -1,7 +1,24 @@
+import { memo, useMemo } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { addStock, subStock, changeName, changeAge } from './../store';
+
+function childWillRender() {
+    console.log('안녕안녕')
+}
+
+let MemoExampleChild = memo(function() {
+    console.log('재렌더링됨');
+    return <div>자식임ㅇㅇ</div>
+})
+
+function Child() {
+    let result = useMemo(() => { return childWillRender() }, [])
+    
+    console.log('차일드차차차');
+    return <div>자식자식차차차</div>
+}
 
 function Cart() {
     let dispatch = useDispatch();
@@ -43,6 +60,7 @@ function Cart() {
             </Table>
 
             <MemoExampleChild />
+            <Child />
             <Button onClick={() => {
                 dispatch(changeAge(1))
             }} variant="outline-dark">{`${user.name}님, ${user.age}세`}</Button>
