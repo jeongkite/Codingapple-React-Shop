@@ -41,11 +41,6 @@ function App() {
           </Container>
         </Navbar>
 
-        <div>
-          {result.isLoading && '로딩중'}
-          {result.error && '에러남'}
-          {result.data && result.data.name}
-        </div>
         <Suspense fallback={ <div>로딩중...</div> }>
           <Routes>
             <Route path='/' element={<MainPage items={items} />} />
@@ -62,6 +57,11 @@ function App() {
             <Route path='*' element={<div>잘못된 접근입니다.</div>} />
           </Routes>
         </Suspense>
+        {/* <div>
+          {result.isLoading && '로딩중'}
+          {result.error && '에러남'}
+          {result.data && result.data.name}
+        </div> */}
       </StockContext.Provider>
     </div>
   );

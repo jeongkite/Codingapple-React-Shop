@@ -20,7 +20,7 @@ function MainPage() {
                     {
                         items.map(function (item, i) {
                             return (
-                                <Card item={item} />
+                                <Card key={ i } item={item} />
                             )
                         })
                     }

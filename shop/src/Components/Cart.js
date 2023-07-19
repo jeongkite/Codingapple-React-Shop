@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState, useTransition } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,19 +15,35 @@ let MemoExampleChild = memo(function() {
 
 function Child() {
     let result = useMemo(() => { return childWillRender() }, [])
-    
+
     console.log('차일드차차차');
     return <div>자식자식차차차</div>
 }
+
+let a = new Array(10000).fill(0)
 
 function Cart() {
     let dispatch = useDispatch();
     let user = useSelector((state) => { return state.user })
     let carts = useSelector((state) => { return state.carts })
+    let [name, setName] = useState('');
+    let [isPending, startTransition] = useTransition()
 
     return (
         <div>
-            <Table>
+            <input onChange={ (e) => { 
+                startTransition(() => {
+                    setName(e.target.value) 
+                }) 
+                // setName(e.target.value)
+                }} />
+            {
+                isPending ? "로딩중ㅇㅇ~" :
+                a.map(() => {
+                    return <div>{ name }</div>
+                })
+            }
+            {/* <Table>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -63,7 +79,7 @@ function Cart() {
             <Child />
             <Button onClick={() => {
                 dispatch(changeAge(1))
-            }} variant="outline-dark">{`${user.name}님, ${user.age}세`}</Button>
+            }} variant="outline-dark">{`${user.name}님, ${user.age}세`}</Button> */}
         </div>
     )
 }
