@@ -1,4 +1,4 @@
-import { memo, useMemo, useState, useTransition } from 'react';
+import { memo, useDeferredValue, useMemo, useState, useTransition } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -28,19 +28,17 @@ function Cart() {
     let carts = useSelector((state) => { return state.carts })
     let [name, setName] = useState('');
     let [isPending, startTransition] = useTransition()
+    let nameState = useDeferredValue(name)
 
     return (
         <div>
             <input onChange={ (e) => { 
-                startTransition(() => {
                     setName(e.target.value) 
-                }) 
-                // setName(e.target.value)
                 }} />
+            <div> fast { name }</div>
             {
-                isPending ? "로딩중ㅇㅇ~" :
                 a.map(() => {
-                    return <div>{ name }</div>
+                    return <div>{ nameState }</div>
                 })
             }
             {/* <Table>
